@@ -19,8 +19,6 @@ MESSAGE_SCHEDULE = {  # Harmonogram wysyłania wiadomości (godzina: treść wia
     "17:00": "🔴 Close **London** 17:00",
     "12:00": "🟢 Open **New York** 12:00",
     "21:00": "🔴 Close **New York** 22:00",
-    "00:58": "Test 1",
-    "23:58": "Test 2",
 }
 
 # Inicjalizacja klienta Discord z odpowiednimi intencjami
