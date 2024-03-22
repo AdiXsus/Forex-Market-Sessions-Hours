@@ -3,6 +3,7 @@ import os
 import asyncio
 import aiohttp
 from datetime import datetime
+from keep_alive import keep_alive
 
 # Ustawienia bota
 WEBHOOK_URL = os.getenv(
