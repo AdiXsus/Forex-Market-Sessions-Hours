@@ -78,5 +78,6 @@ async def on_ready():
     client.loop.create_task(check_and_send_message())
 
 
+keep_alive()
 # Uruchomienie bota
 client.run(os.getenv('TOKEN'))  # Pobierz token bota z zmiennych środowiskowych
