@@ -11,14 +11,14 @@ WEBHOOK_URL = os.getenv(
 TARGET_USER_ID = int(os.getenv(
     'TARGET_USER_ID'))  # Pobierz ID użytkownika z zmiennych środowiskowych
 MESSAGE_SCHEDULE = {  # Harmonogram wysyłania wiadomości (godzina: treść wiadomości)
-    "20:00": {"message": "🟢 Open **Sydney** 21:00", "status": "Close New York 22:00"},
-    "05:00": {"message": "🔴 Close **Sydney** 06:00", "status": "Open London 09:00"},
-    "00:00": {"message": "🟢 Open **Tokyo** 01:00", "status": "Close Sydney 06:00"},
-    "09:00": {"message": "🔴 Close **Tokyo** 10:00", "status": "Open New York 13:00"},
-    "08:00": {"message": "🟢 Open **London** 09:00", "status": "Close Tokyo 10:00"},
-    "17:00": {"message": "🔴 Close **London** 17:00", "status": "Open Sydney 21:00"},
-    "12:00": {"message": "🟢 Open **New York** 13:00", "status": "Close London 18:00"},
-    "21:00": {"message": "🔴 Close **New York** 22:00", "status": "Open Tokyo 01:00"},
+    "20:00": {"message": "🟢 Open **Sydney** 21:00", "status": "🔴 Close New York 22:00"},
+    "05:00": {"message": "🔴 Close **Sydney** 06:00", "status": "🟢 Open London 09:00"},
+    "00:00": {"message": "🟢 Open **Tokyo** 01:00", "status": "🔴 Close Sydney 06:00"},
+    "09:00": {"message": "🔴 Close **Tokyo** 10:00", "status": "🟢 Open New York 13:00"},
+    "08:00": {"message": "🟢 Open **London** 09:00", "status": "🔴 Close Tokyo 10:00"},
+    "17:00": {"message": "🔴 Close **London** 17:00", "status": "🟢 Open Sydney 21:00"},
+    "12:00": {"message": "🟢 Open **New York** 13:00", "status": "🔴 Close London 18:00"},
+    "21:00": {"message": "🔴 Close **New York** 22:00", "status": "🟢 Open Tokyo 01:00"},
 }
 
 # Inicjalizacja klienta Discord z odpowiednimi intencjami
@@ -43,11 +43,10 @@ async def send_private_message(user, message):
     except discord.errors.Forbidden:
         print(f"Nie można wysłać wiadomości prywatnej do {user.name}")
 
-
 # Funkcja zmieniająca status bota
 async def change_bot_status(status):
-  await client.change_presence(activity=discord.Activity(
-      type=discord.ActivityType.watching, name=status))
+    await client.change_presence(activity=discord.Activity(
+        type=discord.ActivityType.custom, name=status))
 
 # Funkcja sprawdzająca i wysyłająca wiadomość o konkretnej godzinie
 async def check_and_send_message():
