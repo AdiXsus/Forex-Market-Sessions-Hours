@@ -45,8 +45,8 @@ async def send_private_message(user, message):
 
 # Funkcja zmieniająca status bota
 async def change_bot_status(status):
-    await client.change_presence(activity=discord.Activity(
-        type=discord.ActivityType.custom, name=status))
+  await client.change_presence(activity=discord.CustomActivity(
+      type=discord.ActivityType.custom, name=status))
 
 # Funkcja sprawdzająca i wysyłająca wiadomość o konkretnej godzinie
 async def check_and_send_message():
