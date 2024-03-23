@@ -74,7 +74,9 @@ async def check_and_send_message():
 async def on_ready():
     print(f'Zalogowano jako {client.user.name}')
     await client.change_presence(activity=discord.Activity(type=discord.ActivityType.custom, name="⌛️ Checking Market..."))
+    print("Zmieniono status bota.")
     client.loop.create_task(check_and_send_message())
+
 
 @client.event
 async def on_error(event, *args, **kwargs):
