@@ -50,24 +50,35 @@ async def change_bot_status(status):
 
 # Funkcja sprawdzająca i wysyłająca wiadomość o konkretnej godzinie
 async def check_and_send_message():
-    await client.wait_until_ready()
-    target_user = await client.fetch_user(TARGET_USER_ID)
+  await client.wait_until_ready()
+  target_user = await client.fetch_user(TARGET_USER_ID)
 
-    # Wysyłanie wiadomości startowej przez webhook
-    await send_webhook_message("Bot został uruchomiony.")
+  # Wysyłanie wiadomości startowej przez webhook
+  await send_webhook_message("Bot został uruchomiony.")
 
-    while not client.is_closed():
-        now = datetime.now().strftime("%H:%M")
-        if now in MESSAGE_SCHEDULE:
-            schedule = MESSAGE_SCHEDULE[now]
-            message_content = schedule["message"]
-            status_content = schedule["status"]
-            await send_private_message(target_user, message_content)
-            await change_bot_status(status_content)  # Zmiana statusu bota
-            await asyncio.sleep(
-                60
-            )  # Zabezpieczenie przed wielokrotnym wysłaniem w tej samej minucie
-        await asyncio.sleep(30)  # Sprawdzanie co 30 sekund
+  while not client.is_closed():
+    now = datetime.now()
+    current_time = now.strftime("%H:%M")
+
+    # Sprawdź, czy obecny czas mieści się w zakresie czasowym blokady
+    if ((now.weekday() == 4 and now.hour >= 23 and now.minute >= 10)
+        or (now.weekday() == 5) or (now.weekday() == 6 and now.hour < 23)
+        or (now.weekday() == 6 and now.hour == 23 and now.minute < 10)):
+      print(f"Nie wysłano wiadomości o {current_time}, ze względu na blokadę czasową."
+      ):
+      await change_bot_status("⌛️ Marked Closed")
+      await asyncio.sleep(60)  # Czekaj 60 sekund i sprawdź ponownie
+      continue
+
+    # Jeśli obecny czas pasuje do jednego z zaplanowanych czasów, wyślij wiadomość
+    if current_time in MESSAGE_SCHEDULE:
+      schedule = MESSAGE_SCHEDULE[current_time]
+      message_content = schedule["message"]
+      status_content = schedule["status"]
+      await send_private_message(target_user, message_content)
+      await change_bot_status(status_content)  # Zmiana statusu bota
+
+    await asyncio.sleep(60)  # Sprawdzanie co minutę
 
 # Event połączenia z Discordem
 @client.event
