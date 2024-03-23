@@ -69,11 +69,11 @@ async def check_and_send_message():
             )  # Zabezpieczenie przed wielokrotnym wysłaniem w tej samej minucie
         await asyncio.sleep(30)  # Sprawdzanie co 30 sekund
 
-
 # Event połączenia z Discordem
 @client.event
 async def on_ready():
     print(f'Zalogowano jako {client.user.name}')
+    await client.change_presence(activity=discord.Activity(type=discord.ActivityType.custom, name="⌛️ Checking Market..."))
     client.loop.create_task(check_and_send_message())
 
 @client.event
