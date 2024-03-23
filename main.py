@@ -77,7 +77,26 @@ async def on_ready():
     print(f'Zalogowano jako {client.user.name}')
     client.loop.create_task(check_and_send_message())
 
+@client.event
+async def on_error(event, *args, **kwargs):
+  print('Błąd:', args, kwargs)
+
+
+@client.event
+async def on_disconnect():
+  print('Bot został rozłączony')
+
+
+@client.event
+async def on_reconnect():
+  print('Bot próbuje ponownie połączyć się z Discord.')
+
+
+@client.event
+async def on_invalidated():
+  print('Token bota został zinvalidowany.')
 
 keep_alive()
+
 # Uruchomienie bota
 client.run(os.getenv('TOKEN'))  # Pobierz token bota z zmiennych środowiskowych
