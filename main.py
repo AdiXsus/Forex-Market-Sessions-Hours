@@ -64,8 +64,6 @@ async def check_and_send_message():
     if ((now.weekday() == 4 and now.hour >= 23 and now.minute >= 10)
         or (now.weekday() == 5) or (now.weekday() == 6 and now.hour < 23)
         or (now.weekday() == 6 and now.hour == 23 and now.minute < 10)):
-      print(f"Nie wysłano wiadomości o {current_time}, ze względu na blokadę czasową."
-      ):
       await change_bot_status("⌛️ Marked Closed")
       await asyncio.sleep(60)  # Czekaj 60 sekund i sprawdź ponownie
       continue
