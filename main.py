@@ -26,14 +26,12 @@ intents = discord.Intents.default()
 intents.messages = True
 client = discord.Client(intents=intents)
 
-
 # Funkcja do wysyłania wiadomości przez webhook
 async def send_webhook_message(message):
     async with aiohttp.ClientSession() as session:
         async with session.post(WEBHOOK_URL, json={"content":
                                                        message}) as response:
             pass
-
 
 # Funkcja do wysyłania wiadomości prywatnej
 async def send_private_message(user, message):
@@ -48,7 +46,6 @@ async def change_bot_status(status):
   await client.change_presence(activity=discord.CustomActivity(
       type=discord.ActivityType.custom, name=status))
 
-# Funkcja sprawdzająca i wysyłająca wiadomość o konkretnej godzinie
 # Funkcja sprawdzająca i wysyłająca wiadomość o konkretnej godzinie
 async def check_and_send_message():
   await client.wait_until_ready()
