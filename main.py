@@ -49,6 +49,7 @@ async def change_bot_status(status):
       type=discord.ActivityType.custom, name=status))
 
 # Funkcja sprawdzająca i wysyłająca wiadomość o konkretnej godzinie
+# Funkcja sprawdzająca i wysyłająca wiadomość o konkretnej godzinie
 async def check_and_send_message():
   await client.wait_until_ready()
   target_user = await client.fetch_user(TARGET_USER_ID)
@@ -60,10 +61,18 @@ async def check_and_send_message():
     now = datetime.now()
     current_time = now.strftime("%H:%M")
 
-    # Sprawdź, czy obecny czas mieści się w zakresie czasowym blokady
-    if ((now.weekday() == 4 and now.hour >= 23 and now.minute >= 10)
-        or (now.weekday() == 5) or (now.weekday() == 6 and now.hour < 23)
-        or (now.weekday() == 6 and now.hour == 23 and now.minute < 10)):
+    # Sprawdzenie czy jest piątek i godzina jest odpowiednia
+    if now.weekday() == 4 and now.hour == 20 and now.minute == 30:
+      await send_private_message(target_user, "🔴 Market closes in 30 minutes.")
+
+    # Sprawdzenie czy jest niedziela i godzina jest odpowiednia
+    if now.weekday() == 6 and now.hour == 21 and now.minute == 45:
+      await send_private_message(target_user,"🟢 Market opens soon.")
+
+    # Sprawdzenie, czy obecny czas mieści się w zakresie czasowym blokady
+    if ((now.weekday() == 4 and now.hour >= 20 and now.minute >= 59)
+        or (now.weekday() == 5) or (now.weekday() == 6 and now.hour < 21)
+        or (now.weekday() == 6 and now.hour == 21 and now.minute < 59)):
       await change_bot_status("⌛️ Marked Closed")
       await asyncio.sleep(60)  # Czekaj 60 sekund i sprawdź ponownie
       continue
