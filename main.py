@@ -16,7 +16,7 @@ MESSAGE_SCHEDULE = {  # Harmonogram wysyłania wiadomości (godzina: treść wia
     "00:00": {"message": "🟢 Open **Tokyo** 01:00", "status": "🔴 Close Sydney 06:00"},
     "09:00": {"message": "🔴 Close **Tokyo** 10:00", "status": "🟢 Open New York 13:00"},
     "08:00": {"message": "🟢 Open **London** 09:00", "status": "🔴 Close Tokyo 10:00"},
-    "17:00": {"message": "🔴 Close **London** 17:00", "status": "🟢 Open Sydney 21:00"},
+    "17:00": {"message": "🔴 Close **London** 18:00", "status": "🟢 Open Sydney 21:00"},
     "12:00": {"message": "🟢 Open **New York** 13:00", "status": "🔴 Close London 18:00"},
     "21:00": {"message": "🔴 Close **New York** 22:00", "status": "🟢 Open Tokyo 01:00"},
 }
