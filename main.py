@@ -57,19 +57,24 @@ async def check_and_send_message():
   while not client.is_closed():
     now = datetime.now()
     current_time = now.strftime("%H:%M")
-
+      
     # Sprawdzenie czy jest piątek i godzina jest odpowiednia
     if now.weekday() == 4 and now.hour == 21 and now.minute == 30:
       await send_private_message(target_user, "🔴 Market closes in 30 minutes.")
 
     # Sprawdzenie czy jest niedziela i godzina jest odpowiednia
-    if now.weekday() == 6 and now.hour == 21 and now.minute == 45:
-      await send_private_message(target_user,"🟢 Market opens soon.")
+    if now.weekday() == 6:
+      if now.hour == 21 and now.minute == 0:
+        await change_bot_status("🟢 Open Tokyo 01:00")  # Zmiana statusu o 21:00 w niedzielę
+
+      elif now.hour == 20 and now.minute == 45:
+        await send_private_message(target_user, "🟢 Market opens soon.")
+        await change_bot_status("🟢 Market opens soon.")
 
     # Sprawdzenie, czy obecny czas mieści się w zakresie czasowym blokady
-    if ((now.weekday() == 4 and now.hour >= 21 and now.minute >= 25)
+    if ((now.weekday() == 4 and now.hour >= 21 and now.minute >= 35)
         or (now.weekday() == 5) or (now.weekday() == 6 and now.hour < 21)
-        or (now.weekday() == 6 and now.hour == 21 and now.minute < 40)):
+        or (now.weekday() == 6 and now.hour == 20 and now.minute < 40)):
       await change_bot_status("⌛️ Marked Closed")
       await asyncio.sleep(60)  # Czekaj 60 sekund i sprawdź ponownie
       continue
