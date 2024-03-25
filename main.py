@@ -65,7 +65,7 @@ async def check_and_send_message():
     # Sprawdzenie czy jest niedziela i godzina jest odpowiednia
     if now.weekday() == 6:
       if now.hour == 21 and now.minute == 0:
-        await change_bot_status("🟢 Open Tokyo 01:00")  # Zmiana statusu o 21:00 w niedzielę
+        await change_bot_status("🟢 Open Sydney 21:00")  # Zmiana statusu o 21:00 w niedzielę
 
       elif now.hour == 20 and now.minute == 45:
         await send_private_message(target_user, "🟢 Market opens soon.")
