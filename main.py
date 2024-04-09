@@ -11,14 +11,14 @@ WEBHOOK_URL = os.getenv(
 TARGET_USER_ID = int(os.getenv(
     'TARGET_USER_ID'))  # Pobierz ID użytkownika z zmiennych środowiskowych
 MESSAGE_SCHEDULE = {  # Harmonogram wysyłania wiadomości (godzina: treść wiadomości)
-    "20:00": {"message": "🟢 Open **Sydney** 23:00", "status": "🔴 Close New York 23:00"},
+    "21:00": {"message": "🟢 Open **Sydney** 23:00", "status": "🔴 Close New York 23:00"},
     "06:00": {"message": "🔴 Close **Sydney** 08:00", "status": "🟢 Open London 09:00"},
-    "24:00": {"message": "🟢 Open **Tokyo** 02:00", "status": "🔴 Close Sydney 08:00"},
+    "00:00": {"message": "🟢 Open **Tokyo** 02:00", "status": "🔴 Close Sydney 08:00"},
     "09:00": {"message": "🔴 Close **Tokyo** 11:00", "status": "🟢 Open New York 14:00"},
     "07:00": {"message": "🟢 Open **London** 09:00", "status": "🔴 Close Tokyo 11:00"},
     "16:00": {"message": "🔴 Close **London** 18:00", "status": "🟢 Open Sydney 23:00"},
-    "11:00": {"message": "🟢 Open **New York** 14:00", "status": "🔴 Close London 18:00"},
-    "20:00": {"message": "🔴 Close **New York** 23:00", "status": "🟢 Open Tokyo 02:00"},
+    "12:00": {"message": "🟢 Open **New York** 14:00", "status": "🔴 Close London 18:00"},
+    "21:00": {"message": "🔴 Close **New York** 23:00", "status": "🟢 Open Tokyo 02:00"},
 }
 
 # Inicjalizacja klienta Discord z odpowiednimi intencjami
