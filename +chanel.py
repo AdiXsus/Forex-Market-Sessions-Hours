@@ -3,7 +3,6 @@ import os
 import asyncio
 import aiohttp
 from datetime import datetime
-
 from discord import channel
 from keep_alive import keep_alive
 
@@ -30,14 +29,12 @@ intents = discord.Intents.default()
 intents.messages = True
 client = discord.Client(intents=intents)
 
-
 # Funkcja do wysyłania wiadomości przez webhook
 async def send_webhook_message(message):
   async with aiohttp.ClientSession() as session:
     async with session.post(WEBHOOK_URL, json={"content":
                                                message}) as response:
       pass
-
 
 # Funkcja do wysyłania wiadomości prywatnej
 async def send_private_message(user, message):
@@ -47,7 +44,6 @@ async def send_private_message(user, message):
   except discord.errors.Forbidden:
     print(f"Nie można wysłać wiadomości prywatnej do {user.name}")
 
-
 # Funkcja do wysyłania wiadomości na kanał
 async def send_channel_message(channel_id, message):
   try:
@@ -56,12 +52,10 @@ async def send_channel_message(channel_id, message):
   except discord.errors.Forbidden:
     print(f"Nie można wysłać wiadomości na kanał {channel_id}")
 
-
 # Funkcja zmieniająca status bota
 async def change_bot_status(status):
   await client.change_presence(activity=discord.CustomActivity(
       type=discord.ActivityType.custom, name=status))
-
 
 # Funkcja sprawdzająca i wysyłająca wiadomość o konkretnej godzinie
 async def check_and_send_message():
@@ -111,7 +105,6 @@ async def check_and_send_message():
 
     await asyncio.sleep(60)  # Sprawdzanie co minutę
 
-
 # Event połączenia z Discordem
 @client.event
 async def on_ready():
@@ -121,26 +114,21 @@ async def on_ready():
   print("Zmieniono status bota.")
   client.loop.create_task(check_and_send_message())
 
-
 @client.event
 async def on_error(event, *args, **kwargs):
   print('Błąd:', args, kwargs)
-
 
 @client.event
 async def on_disconnect():
   print('Bot został rozłączony')
 
-
 @client.event
 async def on_reconnect():
   print('Bot próbuje ponownie połączyć się z Discord.')
 
-
 @client.event
 async def on_invalidated():
   print('Token bota został zinvalidowany.')
-
 
 keep_alive()
 
