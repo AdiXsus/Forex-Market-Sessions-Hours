@@ -102,16 +102,13 @@ async def on_ready():
 async def on_error(event, *args, **kwargs):
   print('Błąd:', args, kwargs)
 
-
 @client.event
 async def on_disconnect():
   print('Bot został rozłączony')
 
-
 @client.event
 async def on_reconnect():
   print('Bot próbuje ponownie połączyć się z Discord.')
-
 
 @client.event
 async def on_invalidated():
